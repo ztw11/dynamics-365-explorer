@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Which Dynamics 365 solution is for you? — Woods Business Solutions</title>
+  <meta name="description" content="A six-question explorer that maps your business needs to the right Dynamics 365 solution. Built by Woods Business Solutions — Microsoft Systems Integrator." />
+  <meta property="og:title" content="Which Dynamics 365 solution is for you?" />
+  <meta property="og:description" content="Six questions. Personalized recommendations. Built by Woods Business Solutions." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       WBS Design Tokens — from the official brand guidelines
+       ========================================================= */
+    :root {
+      /* Colors */
+      --wbs-dark: #232323;
+      --wbs-lime: #CAF1A2;
+      --wbs-blue-grey: #363C46;
+      --wbs-light-grey: #E8E8E8;
+      --wbs-white: #FFFFFF;
+      --wbs-black: #0F0F0F;
+      --wbs-gradient-dark: #454545;
+      --wbs-lime-muted: #B8E08F;
+      --wbs-lime-light: #E5F8D4;
+
+      /* Typography */
+      --font-family: 'Cubron Grotesk', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+      --shadow-lime: 0 0 32px rgba(202,241,162,0.2);
+
+      /* Dark mode tokens */
+      --bg-primary: var(--wbs-dark);
+      --bg-secondary: var(--wbs-blue-grey);
+      --bg-card: #2B2B2B;
+      --bg-card-hover: #323232;
+      --text-primary: var(--wbs-white);
+      --text-secondary: #A0A0A0;
+      --text-muted: #707070;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+    }
+
+    /* =========================================================
+       Reset & base
+       ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: 300;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+
+    /* Ambient atmosphere — WBS diagonal stripe hint */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 80% 0%, rgba(202,241,162,0.06), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 10% 100%, rgba(202,241,162,0.04), transparent 50%);
+      z-index: 0;
+    }
+
+    /* Subtle noise texture for depth */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================================================
+       Typography
+       ========================================================= */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    /* =========================================================
+       Layout primitives
+       ========================================================= */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 var(--space-2xl);
+      }
+    }
+
+    /* =========================================================
+       Header
+       ========================================================= */
+    .site-header {
+      padding: var(--space-lg) 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(35, 35, 35, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark svg {
+      width: 64px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .brand-text small {
+      display: block;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .header-meta span {
+      color: var(--wbs-lime);
+    }
+
+    /* =========================================================
+       Hero / Start screen
+       ========================================================= */
+    .screen {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      padding: var(--space-3xl) 0 var(--space-4xl);
+      min-height: calc(100vh - 90px);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-inner {
+      max-width: 920px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(202, 241, 162, 0.1);
+      border: 1px solid rgba(202, 241, 162, 0.25);
+      color: var(--wbs-lime);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-xl);
+      animation: slideUp 0.6s ease 0.1s backwards;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--wbs-lime);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: var(--space-lg);
+      letter-spacing: -0.03em;
+      animation: slideUp 0.6s ease 0.2s backwards;
+    }
+
+    .hero h1 .accent {
+      color: var(--wbs-lime);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin-bottom: var(--space-2xl);
+      line-height: 1.5;
+      animation: slideUp 0.6s ease 0.3s backwards;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      margin-bottom: var(--space-3xl);
+      animation: slideUp 0.6s ease 0.4s backwards;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--border);
+      animation: slideUp 0.6s ease 0.5s backwards;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-meta-item .n {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--wbs-lime);
+      line-height: 1;
+    }
+
+    .hero-meta-item .l {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Decorative diagonal stripes — echoing the WBS logo */
+    .hero-stripes {
+      position: absolute;
+      top: 0;
+      right: -10%;
+      bottom: 0;
+      width: 50%;
+      pointer-events: none;
+      opacity: 0.5;
+      overflow: hidden;
+    }
+
+    .hero-stripes svg {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: auto;
+      animation: stripeFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes stripeFloat {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(-48%) translateX(-12px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-stripes { display: none; }
+    }
+
+    /* =========================================================
+       Buttons
+       ========================================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--wbs-lime);
+      color: var(--wbs-dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--wbs-lime-muted);
+      box-shadow: var(--shadow-lime);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--wbs-lime);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 10px 16px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--wbs-lime);
+    }
+
+    .btn .arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* =========================================================
+       Quiz screen
+       ========================================================= */
+    .quiz {
+      padding: var(--space-2xl) 0 var(--space-4xl);
+      min-height: calc(100vh - 90px);
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-2xl);
+      gap: var(--space-lg);
+    }
+
+    .progress-info {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .progress-info span {
+      color: var(--wbs-lime);
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--wbs-lime);
+      border-radius: var(--radius-full);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px rgba(202, 241, 162, 0.4);
+    }
+
+    .question-card {
+      max-width: 900px;
+      margin: 0 auto;
+      animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .question-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wbs-lime);
+      margin-bottom: var(--space-md);
+    }
+
+    .question-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .question-hint {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 640px) {
+      .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .options-grid.single-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      font-family: inherit;
+      color: inherit;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--wbs-lime);
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+
+    .option:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .option:hover::before {
+      transform: translateX(0);
+    }
+
+    .option.selected {
+      border-color: var(--wbs-lime);
+      background: rgba(202, 241, 162, 0.06);
+    }
+
+    .option.selected::before {
+      transform: translateX(0);
+    }
+
+    .option-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: rgba(202, 241, 162, 0.08);
+      border: 1px solid rgba(202, 241, 162, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--wbs-lime);
+      font-size: 1.125rem;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover .option-icon,
+    .option.selected .option-icon {
+      background: rgba(202, 241, 162, 0.15);
+      border-color: rgba(202, 241, 162, 0.4);
+    }
+
+    .option-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .option-title {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .option-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-2xl);
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .quiz-nav .spacer { flex: 1; }
+
+    /* =========================================================
+       Results screen
+       ========================================================= */
+    .results {
+      padding: var(--space-2xl) 0 var(--space-4xl);
+    }
+
+    .results-header {
+      text-align: left;
+      max-width: 800px;
+      margin-bottom: var(--space-2xl);
+      animation: slideUp 0.6s ease;
+    }
+
+    .results-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(202, 241, 162, 0.1);
+      border: 1px solid rgba(202, 241, 162, 0.25);
+      color: var(--wbs-lime);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+    }
+
+    .results-header h2 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: var(--space-sm);
+    }
+
+    .results-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+
+    .primary-rec {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.6s ease 0.1s backwards;
+    }
+
+    .primary-rec::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--wbs-lime) 0%, var(--wbs-lime-muted) 100%);
+    }
+
+    .primary-rec-stripes {
+      position: absolute;
+      top: -40px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .primary-rec-stripes svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .rec-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wbs-lime);
+      margin-bottom: var(--space-md);
+    }
+
+    .rec-name {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-xs);
+    }
+
+    .rec-edition {
+      display: inline-block;
+      font-size: 0.875rem;
+      color: var(--wbs-lime);
+      margin-bottom: var(--space-lg);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .rec-tagline {
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xl);
+      max-width: 640px;
+      line-height: 1.55;
+    }
+
+    .rec-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--space-lg);
+      padding: var(--space-lg) 0;
+      margin-bottom: var(--space-xl);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rec-meta-item .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .rec-meta-item .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .rec-meta-item .value .highlight {
+      color: var(--wbs-lime);
+    }
+
+    .rec-section-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (min-width: 640px) {
+      .feature-list { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .feature-list li {
+      padding-left: 24px;
+      position: relative;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      background: var(--wbs-lime);
+      transform: rotate(45deg);
+    }
+
+    .reasoning {
+      background: rgba(202, 241, 162, 0.04);
+      border: 1px solid rgba(202, 241, 162, 0.15);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .reasoning h4 {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--wbs-lime);
+      margin-bottom: var(--space-md);
+    }
+
+    .reasoning ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .reasoning li {
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .reasoning li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--wbs-lime);
+      font-weight: 600;
+    }
+
+    /* Alternatives section */
+    .alternatives {
+      margin-bottom: var(--space-2xl);
+      animation: slideUp 0.6s ease 0.2s backwards;
+    }
+
+    .alt-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: var(--space-lg);
+      letter-spacing: -0.01em;
+    }
+
+    .alt-title span {
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .alt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .alt-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .alt-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: all 0.2s ease;
+    }
+
+    .alt-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .alt-card-name {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .alt-card-edition {
+      font-size: 0.8125rem;
+      color: var(--wbs-lime);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
+    .alt-card-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--space-md);
+    }
+
+    .alt-card-meta {
+      display: flex;
+      gap: var(--space-md);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border);
+    }
+
+    .alt-card-meta span strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* CTA box at bottom of results */
+    .cta-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      animation: slideUp 0.6s ease 0.3s backwards;
+    }
+
+    .cta-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+    }
+
+    .results-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--border);
+    }
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+    .site-footer {
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--border);
+      margin-top: var(--space-4xl);
+      background: var(--wbs-black);
+    }
+
+    .site-footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .footer-note {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .footer-note a {
+      color: var(--wbs-lime);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-note a:hover { text-decoration: underline; }
+
+    /* Copy toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--wbs-lime);
+      color: var(--wbs-dark);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Accessibility: reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Inline SVG symbols (logo) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="wbs-grad-1" x1="466.58" y1="441.8" x2="600.45" y2="515.28" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#454545"/>
+        <stop offset=".5" stop-color="#caf1a2"/>
+      </linearGradient>
+      <linearGradient id="wbs-grad-2" x1="316.7" y1="442.7" x2="446.97" y2="512.04" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#454545"/>
+        <stop offset=".5" stop-color="#caf1a2"/>
+      </linearGradient>
+      <symbol id="wbs-icon" viewBox="0 0 951.98 748.46">
+        <path fill="url(#wbs-grad-1)" d="M470.13,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+        <path fill="#caf1a2" d="M659.83,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+        <path fill="url(#wbs-grad-2)" d="M319.76,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+        <path fill="#caf1a2" d="M509.46,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+        <path fill="#caf1a2" d="M445.58,208.57h-70.84c-6.25,0-11.94,3.58-14.65,9.21l-154.42,321.17h81.06l158.85-330.38Z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand-mark" href="/">
+        <svg aria-label="Woods Business Solutions"><use href="#wbs-icon"/></svg>
+        <div class="brand-text">
+          Woods Business Solutions
+        </div>
+      </a>
+      <div class="header-meta">
+        <span>●</span>&nbsp; Dynamics 365 Explorer
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SCREEN 1: Hero / start -->
+    <section class="screen active" id="screen-hero">
+      <div class="hero container">
+        <div class="hero-inner">
+          <div class="hero-eyebrow">
+            <span class="dot"></span>
+            Interactive tool — free to use
+          </div>
+          <h1>
+            Which <span class="accent">Dynamics 365</span><br/>
+            solution is for you?
+          </h1>
+          <p class="hero-sub">
+            Microsoft offers more than a dozen Dynamics 365 products with overlapping capabilities, confusing naming, and a licensing guide that runs hundreds of pages. This six-question explorer maps your business to the right fit.
+          </p>
+          <div class="hero-cta-row">
+            <button class="btn btn-primary" id="btn-start">
+              Start the explorer
+              <span class="arrow">→</span>
+            </button>
+            <span class="btn btn-ghost" style="cursor:default">Takes about 90 seconds</span>
+          </div>
+          <div class="hero-meta-row">
+            <div class="hero-meta-item">
+              <span class="n">6</span>
+              <span class="l">Questions</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="n">12</span>
+              <span class="l">Solutions matched</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="n">0</span>
+              <span class="l">Email required</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stripes" aria-hidden="true">
+          <svg viewBox="0 0 951.98 748.46"><use href="#wbs-icon"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: Quiz -->
+    <section class="screen" id="screen-quiz">
+      <div class="quiz container">
+        <div class="progress-wrap">
+          <div class="progress-info">Question <span id="qCurrent">1</span> of <span id="qTotal">6</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:16.66%"></div></div>
+        </div>
+        <div id="questionMount"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" id="btn-back">← Back</button>
+          <div class="spacer"></div>
+          <button class="btn btn-secondary" id="btn-skip" style="display:none">Skip</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: Results -->
+    <section class="screen" id="screen-results">
+      <div class="results container">
+        <div class="results-header">
+          <div class="results-eyebrow">
+            <span>●</span>&nbsp; Your match
+          </div>
+          <h2>Based on your answers, here's your fit.</h2>
+          <p>One primary recommendation, two alternatives worth considering, and where to go from here.</p>
+        </div>
+        <div id="resultsMount"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="brand-mark">
+        <svg style="width:44px"><use href="#wbs-icon"/></svg>
+        <div class="brand-text">
+          Woods Business Solutions
+          <small>© 2026</small>
+        </div>
+      </div>
+      <p class="footer-note">
+        Built as a free resource. For implementation help, <a href="#" id="ftr-contact">get in touch</a>.
+      </p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Result link copied to clipboard</div>
+
+  <script>
+    // =========================================================
+    // QUESTIONS
+    // =========================================================
+    const QUESTIONS = [
+      {
+        id: 'need',
+        label: '01',
+        title: 'What sits at the core of your business?',
+        hint: 'Pick the area where you feel the most pain or see the most opportunity.',
+        columns: 2,
+        options: [
+          { value: 'sales',       icon: '◈', title: 'Sales & CRM', desc: 'Managing prospects, deals, pipeline, and forecasts.' },
+          { value: 'service',     icon: '◆', title: 'Customer Service', desc: 'Handling support cases, SLAs, and customer satisfaction.' },
+          { value: 'field',       icon: '◉', title: 'Field Service', desc: 'Scheduling technicians, managing on-site work, and assets.' },
+          { value: 'marketing',   icon: '◎', title: 'Marketing', desc: 'Running campaigns, nurturing leads, understanding customers.' },
+          { value: 'finance',     icon: '◇', title: 'Finance & Accounting', desc: 'Multi-entity accounting, reporting, treasury, compliance.' },
+          { value: 'supply',      icon: '▣', title: 'Operations & Supply Chain', desc: 'Inventory, procurement, warehousing, manufacturing.' },
+          { value: 'project',     icon: '▲', title: 'Project-based Services', desc: 'Consulting or services firm delivering billable projects.' },
+          { value: 'hr',          icon: '●', title: 'HR & People', desc: 'Core HR, benefits, leave, employee lifecycle.' }
+        ]
+      },
+      {
+        id: 'size',
+        label: '02',
+        title: 'How big is your organization?',
+        hint: 'Roughly — headcount matters because it shapes which SKU lines you should even consider.',
+        columns: 1,
+        options: [
+          { value: 'small',       icon: '◐', title: 'Small or startup', desc: 'Under 50 employees. Agile, few entities, one country.' },
+          { value: 'mid',         icon: '◑', title: 'Mid-market', desc: '50 to 1,000 employees. Multiple teams, maybe multiple locations.' },
+          { value: 'enterprise',  icon: '◒', title: 'Enterprise', desc: '1,000+ employees. Multi-entity, multi-country, complex governance.' }
+        ]
+      },
+      {
+        id: 'current',
+        label: '03',
+        title: 'Where are you today?',
+        hint: 'Your starting point changes what makes sense — greenfield and migration are different games.',
+        columns: 2,
+        options: [
+          { value: 'none',        icon: '✕', title: 'Spreadsheets & email', desc: 'No formal system. Excel, inbox rules, a shared drive.' },
+          { value: 'legacy',      icon: '◧', title: 'Legacy on-premise', desc: 'An old ERP or CRM — SAP, Oracle, Navision, something aging.' },
+          { value: 'othercloud',  icon: '◨', title: 'Another cloud', desc: 'On Salesforce, HubSpot, NetSuite, Zoho, or similar today.' },
+          { value: 'microsoft',   icon: '◩', title: 'Already on Microsoft', desc: 'Using some Microsoft stack — looking to expand or consolidate.' }
+        ]
+      },
+      {
+        id: 'ai',
+        label: '04',
+        title: 'How important is AI and Copilot?',
+        hint: 'Microsoft\'s AI story varies dramatically by SKU. This matters more than you might think.',
+        columns: 1,
+        options: [
+          { value: 'musthave',    icon: '✦', title: 'Must-have — we\'re going AI-first', desc: 'Copilot, agents, and automation are core to the decision.' },
+          { value: 'nice',        icon: '✧', title: 'Nice to have', desc: 'Curious about AI, but it isn\'t the main driver.' },
+          { value: 'later',       icon: '○', title: 'Not a priority right now', desc: 'Focused on the fundamentals — AI can come later.' }
+        ]
+      },
+      {
+        id: 'priority',
+        label: '05',
+        title: 'What matters most?',
+        hint: 'You can only optimize for one of these. Pick the one that would make a failed project feel like a success.',
+        columns: 2,
+        options: [
+          { value: 'speed',       icon: '⟶', title: 'Speed to value', desc: 'Live in months, not years. Out-of-the-box is a feature.' },
+          { value: 'fit',         icon: '⟜', title: 'Deep customization', desc: 'Our processes are unique. The system has to bend to us.' },
+          { value: 'scale',       icon: '⟴', title: 'Scale & complexity', desc: 'Global, multi-entity, multi-currency, audit-ready.' },
+          { value: 'cost',        icon: '⟡', title: 'Cost efficiency', desc: 'Lean and focused. No paying for features we\'ll never use.' }
+        ]
+      },
+      {
+        id: 'industry',
+        label: '06',
+        title: 'Which industry are you in?',
+        hint: 'Industry shifts the weighting — some SKUs map more directly than others.',
+        columns: 2,
+        options: [
+          { value: 'professional', icon: '▪', title: 'Professional services', desc: 'Consulting, agencies, law, accounting, IT services.' },
+          { value: 'manufacturing',icon: '▫', title: 'Manufacturing', desc: 'Discrete, process, or mixed-mode production.' },
+          { value: 'retail',       icon: '▴', title: 'Retail & commerce', desc: 'Physical stores, e-commerce, omnichannel.' },
+          { value: 'financial',    icon: '▾', title: 'Financial services', desc: 'Banking, insurance, wealth management, fintech.' },
+          { value: 'healthcare',   icon: '◆', title: 'Healthcare', desc: 'Providers, payers, life sciences, medical devices.' },
+          { value: 'public',       icon: '◇', title: 'Public sector', desc: 'Government, education, nonprofit, utilities.' },
+          { value: 'other',        icon: '○', title: 'Something else', desc: 'None of the above — no problem, we\'ll weigh it neutrally.' }
+        ]
+      }
+    ];
+
+    // =========================================================
+    // SOLUTIONS DATABASE
+    // =========================================================
+    const SOLUTIONS = {
+      'sales-enterprise': {
+        name: 'Dynamics 365 Sales',
+        edition: 'Enterprise Edition',
+        tagline: 'A full-featured CRM for sales teams ready to use AI for forecasting, pipeline intelligence, and relationship depth.',
+        features: [
+          'Copilot for Sales included',
+          'AI-powered pipeline forecasting',
+          'LinkedIn Sales Navigator integration',
+          'Territory & quota management',
+          'Relationship analytics',
+          'Full Power Platform extensibility'
+        ],
+        startingPrice: '€95',
+        priceUnit: '/user/month',
+        complexity: 'Medium',
+        implementationTime: '8–16 weeks',
+        shortDesc: 'Full-featured CRM with AI forecasting and Copilot built in.'
+      },
+      'sales-premium': {
+        name: 'Dynamics 365 Sales',
+        edition: 'Premium Edition',
+        tagline: 'Enterprise Sales with the full AI stack — conversation intelligence, Sales Accelerator, and advanced assistants.',
+        features: [
+          'Everything in Sales Enterprise',
+          'Conversation Intelligence',
+          'Sales Accelerator (guided selling)',
+          'Advanced Copilot agents',
+          'Predictive scoring models'
+        ],
+        startingPrice: '€135',
+        priceUnit: '/user/month',
+        complexity: 'Medium–High',
+        implementationTime: '10–20 weeks',
+        shortDesc: 'Sales Enterprise plus conversation intelligence and guided selling.'
+      },
+      'customer-service': {
+        name: 'Dynamics 365 Customer Service',
+        edition: 'Enterprise Edition',
+        tagline: 'Omnichannel support with case management, SLA enforcement, and Copilot drafting agent responses in real time.',
+        features: [
+          'Unified case & knowledge management',
+          'Omnichannel (chat, SMS, email, voice)',
+          'Copilot agent assist & auto-summaries',
+          'SLA management with escalation',
+          'Customer Service Insights',
+          'Power Virtual Agent integration'
+        ],
+        startingPrice: '€105',
+        priceUnit: '/user/month',
+        complexity: 'Medium',
+        implementationTime: '10–18 weeks',
+        shortDesc: 'Omnichannel support with Copilot agent assist and SLA automation.'
+      },
+      'field-service': {
+        name: 'Dynamics 365 Field Service',
+        edition: 'Standard',
+        tagline: 'Schedule, dispatch, and equip field technicians with mobile access, IoT-triggered work orders, and AI-optimized routing.',
+        features: [
+          'Intelligent scheduling & dispatch',
+          'Mobile app for technicians',
+          'Work order management',
+          'Asset & equipment tracking',
+          'IoT-triggered service',
+          'Remote Assist (mixed reality)'
+        ],
+        startingPrice: '€105',
+        priceUnit: '/user/month',
+        complexity: 'Medium–High',
+        implementationTime: '12–24 weeks',
+        shortDesc: 'Scheduling, dispatch, and mobile tooling for field technicians.'
+      },
+      'customer-insights-journeys': {
+        name: 'Customer Insights — Journeys',
+        edition: 'Marketing automation',
+        tagline: 'Real-time, event-triggered customer journeys across email, SMS, and push. Formerly branded as Dynamics 365 Marketing.',
+        features: [
+          'Real-time journey orchestration',
+          'Copilot content generation',
+          'Event-based triggers',
+          'Email, SMS, push, custom channels',
+          'A/B testing & optimization',
+          'Native Customer Insights integration'
+        ],
+        startingPrice: '€1,500',
+        priceUnit: '/tenant/month',
+        complexity: 'Medium',
+        implementationTime: '8–14 weeks',
+        shortDesc: 'Real-time marketing journeys with Copilot content generation.'
+      },
+      'customer-insights-data': {
+        name: 'Customer Insights — Data',
+        edition: 'Customer Data Platform',
+        tagline: 'Unify customer data from every source into a single profile — with AI-driven segmentation, predictions, and enrichment.',
+        features: [
+          'Unified customer profiles',
+          'AI-powered segmentation',
+          'Predictive models (churn, LTV)',
+          'Real-time data activation',
+          'Third-party data enrichment'
+        ],
+        startingPrice: '€1,500',
+        priceUnit: '/tenant/month',
+        complexity: 'High',
+        implementationTime: '12–20 weeks',
+        shortDesc: 'Customer Data Platform for unified profiles and AI segmentation.'
+      },
+      'business-central': {
+        name: 'Dynamics 365 Business Central',
+        edition: 'Premium',
+        tagline: 'The all-in-one ERP for small and mid-sized businesses. Finance, sales, service, inventory, and manufacturing in one tight package.',
+        features: [
+          'Integrated financials & accounting',
+          'Sales, purchase, and inventory management',
+          'Light manufacturing & service modules',
+          'Built-in Copilot features',
+          'Native Microsoft 365 integration',
+          'Rapid deployment — weeks not months'
+        ],
+        startingPrice: '€105',
+        priceUnit: '/user/month',
+        complexity: 'Low–Medium',
+        implementationTime: '6–14 weeks',
+        shortDesc: 'All-in-one ERP built specifically for small and mid-sized businesses.'
+      },
+      'finance': {
+        name: 'Dynamics 365 Finance',
+        edition: 'Enterprise',
+        tagline: 'Global, multi-entity financial management with AI cash-flow forecasting, budget controls, and audit-grade reporting.',
+        features: [
+          'Multi-entity, multi-currency consolidation',
+          'AI-driven cash flow forecasting',
+          'Revenue recognition automation',
+          'Budget planning & control',
+          'Audit-grade compliance & reporting',
+          'Subscription billing'
+        ],
+        startingPrice: '€180',
+        priceUnit: '/user/month',
+        complexity: 'High',
+        implementationTime: '6–18 months',
+        shortDesc: 'Enterprise-grade finance for multi-entity, multi-country operations.'
+      },
+      'supply-chain': {
+        name: 'Dynamics 365 Supply Chain Management',
+        edition: 'Enterprise',
+        tagline: 'End-to-end supply chain visibility with AI-driven planning, manufacturing execution, and warehouse intelligence.',
+        features: [
+          'Demand & supply planning with AI',
+          'Manufacturing execution (discrete, process, mixed-mode)',
+          'Advanced warehouse management',
+          'Transportation management',
+          'IoT & sensor integration',
+          'Quality management'
+        ],
+        startingPrice: '€180',
+        priceUnit: '/user/month',
+        complexity: 'High',
+        implementationTime: '6–18 months',
+        shortDesc: 'End-to-end supply chain and manufacturing for complex operations.'
+      },
+      'commerce': {
+        name: 'Dynamics 365 Commerce',
+        edition: 'Enterprise',
+        tagline: 'Unified omnichannel commerce — POS, e-commerce, and call center on one engine with a shared loyalty and customer graph.',
+        features: [
+          'Modern point-of-sale',
+          'E-commerce engine & headless APIs',
+          'Call center & clienteling',
+          'Unified loyalty program',
+          'Real-time inventory across channels',
+          'AI-powered recommendations'
+        ],
+        startingPrice: '€180',
+        priceUnit: '/user/month',
+        complexity: 'High',
+        implementationTime: '9–18 months',
+        shortDesc: 'Omnichannel retail — POS, e-commerce, and call center unified.'
+      },
+      'human-resources': {
+        name: 'Dynamics 365 Human Resources',
+        edition: 'Standard',
+        tagline: 'Core HR with leave and absence, benefits, compensation, and a modern self-service employee experience.',
+        features: [
+          'Employee self-service',
+          'Leave and absence management',
+          'Benefits administration',
+          'Compensation management',
+          'Personnel analytics',
+          'LinkedIn Talent Hub integration'
+        ],
+        startingPrice: '€135',
+        priceUnit: '/user/month',
+        complexity: 'Medium',
+        implementationTime: '10–20 weeks',
+        shortDesc: 'Core HR with self-service, benefits, and compensation.'
+      },
+      'project-operations': {
+        name: 'Dynamics 365 Project Operations',
+        edition: 'Standard',
+        tagline: 'Built for services firms. Unifies sales, resourcing, project delivery, time, expense, and billing on a single platform.',
+        features: [
+          'Project-based sales & quoting',
+          'Resource scheduling & skills matching',
+          'Time & expense capture',
+          'Project accounting & billing',
+          'Revenue recognition (WIP, milestones)',
+          'Portfolio & program management'
+        ],
+        startingPrice: '€110',
+        priceUnit: '/user/month',
+        complexity: 'Medium–High',
+        implementationTime: '12–24 weeks',
+        shortDesc: 'Sales through delivery to billing for services firms.'
+      },
+      'contact-center': {
+        name: 'Dynamics 365 Contact Center',
+        edition: 'AI-first',
+        tagline: 'Standalone AI-powered contact center that sits on top of whatever CRM you already run — built for deflection and agent augmentation.',
+        features: [
+          'Fully voice, chat, SMS, email channels',
+          'Copilot agents for self-service',
+          'Agent Copilot in real-time',
+          'Works with any CRM (not just D365)',
+          'Quality & analytics baked in'
+        ],
+        startingPrice: '€110',
+        priceUnit: '/user/month',
+        complexity: 'Medium',
+        implementationTime: '8–16 weeks',
+        shortDesc: 'AI-first contact center that layers on top of any CRM.'
+      }
+    };
+
+    // =========================================================
+    // SCORING MATRIX — maps answers to solution weights
+    // =========================================================
+    const SCORING = {
+      need: {
+        sales:     { 'sales-enterprise': 10, 'sales-premium': 7, 'customer-insights-journeys': 3, 'customer-insights-data': 3 },
+        service:   { 'customer-service': 10, 'contact-center': 8, 'field-service': 3 },
+        field:     { 'field-service': 12, 'customer-service': 3 },
+        marketing: { 'customer-insights-journeys': 10, 'customer-insights-data': 9, 'sales-enterprise': 2 },
+        finance:   { 'finance': 10, 'business-central': 8 },
+        supply:    { 'supply-chain': 11, 'business-central': 6, 'finance': 4, 'commerce': 3 },
+        project:   { 'project-operations': 12, 'business-central': 4, 'sales-enterprise': 3 },
+        hr:        { 'human-resources': 12 }
+      },
+      size: {
+        small:      { 'business-central': 6, 'sales-enterprise': -2, 'finance': -6, 'supply-chain': -6, 'commerce': -4, 'project-operations': -1, 'human-resources': -2 },
+        mid:        { 'sales-enterprise': 3, 'customer-service': 3, 'field-service': 2, 'project-operations': 3, 'business-central': 3, 'finance': 1, 'human-resources': 2 },
+        enterprise: { 'finance': 6, 'supply-chain': 6, 'commerce': 4, 'human-resources': 4, 'sales-premium': 3, 'contact-center': 2, 'business-central': -4 }
+      },
+      current: {
+        none:       { 'business-central': 4, 'sales-enterprise': 2, 'customer-service': 1 },
+        legacy:     { 'finance': 4, 'supply-chain': 4, 'business-central': 2 },
+        othercloud: { 'sales-enterprise': 2, 'customer-service': 2, 'commerce': 2, 'contact-center': 3 },
+        microsoft:  { 'sales-enterprise': 2, 'customer-service': 2, 'field-service': 2, 'business-central': 2, 'project-operations': 2 }
+      },
+      ai: {
+        musthave: { 'sales-premium': 6, 'contact-center': 5, 'customer-service': 3, 'customer-insights-journeys': 3, 'customer-insights-data': 3, 'sales-enterprise': 2 },
+        nice:     {},
+        later:    { 'business-central': 2, 'sales-enterprise': -1, 'sales-premium': -3, 'contact-center': -2 }
+      },
+      priority: {
+        speed:   { 'business-central': 4, 'sales-enterprise': 2, 'contact-center': 2 },
+        fit:     { 'sales-enterprise': 2, 'customer-service': 2, 'supply-chain': 2, 'finance': 2, 'project-operations': 2 },
+        scale:   { 'finance': 5, 'supply-chain': 5, 'commerce': 3, 'sales-premium': 2, 'human-resources': 2 },
+        cost:    { 'business-central': 4, 'sales-enterprise': 2, 'contact-center': 1, 'sales-premium': -2 }
+      },
+      industry: {
+        professional: { 'project-operations': 5, 'business-central': 2, 'sales-enterprise': 1 },
+        manufacturing:{ 'supply-chain': 5, 'business-central': 2, 'finance': 2, 'field-service': 2 },
+        retail:       { 'commerce': 6, 'supply-chain': 3, 'customer-insights-data': 2 },
+        financial:    { 'sales-enterprise': 3, 'customer-service': 3, 'finance': 2, 'customer-insights-data': 2 },
+        healthcare:   { 'field-service': 3, 'customer-service': 3, 'human-resources': 2 },
+        public:       { 'customer-service': 3, 'finance': 2, 'human-resources': 2 },
+        other:        {}
+      }
+    };
+
+    // Reasoning text generator for results
+    const REASONING = {
+      need: {
+        sales:     'Sales-first focus — your primary lever is pipeline and relationships.',
+        service:   'Customer service at the core — SLAs, cases, and agent productivity matter most.',
+        field:     'Field operations — the friction is in scheduling, dispatch, and what happens on-site.',
+        marketing: 'Marketing-led — you need journey orchestration and a strong customer data story.',
+        finance:   'Finance-first — multi-entity accounting and controls are the anchor.',
+        supply:    'Operations-heavy — inventory, manufacturing, and supply chain are the bottleneck.',
+        project:   'Services-based model — you live or die on resourcing, delivery, and billing.',
+        hr:        'People operations — HR automation and employee experience are the priority.'
+      },
+      size: {
+        small:      'As a smaller organization, you need fast time-to-value without enterprise complexity.',
+        mid:        'Mid-market sizing lets you pick the right tool without over- or under-shooting.',
+        enterprise: 'Enterprise scale demands the full enterprise SKUs — compliance, consolidation, and depth.'
+      },
+      ai: {
+        musthave: 'AI-first stance — steered you toward SKUs with the richest Copilot and agent capabilities.',
+        nice:     '',
+        later:    'AI deprioritized — kept the recommendations focused on fundamentals, not premium AI tiers.'
+      },
+      priority: {
+        speed: 'Optimized for speed-to-value — faster-deploying, less-customized options were favored.',
+        fit:   'Customization was your priority — SKUs with Power Platform depth and configurability rose to the top.',
+        scale: 'Scale & complexity priority — enterprise-grade SKUs with multi-entity and audit rigor were weighted up.',
+        cost:  'Cost efficiency priority — leaner, focused SKUs beat out premium bundles.'
+      }
+    };
+
+    // =========================================================
+    // STATE
+    // =========================================================
+    const state = {
+      screen: 'hero',
+      questionIndex: 0,
+      answers: {}
+    };
+
+    // =========================================================
+    // NAVIGATION
+    // =========================================================
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-' + id).classList.add('active');
+      state.screen = id;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function startQuiz() {
+      state.questionIndex = 0;
+      state.answers = {};
+      showScreen('quiz');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[state.questionIndex];
+      const mount = document.getElementById('questionMount');
+      const total = QUESTIONS.length;
+      document.getElementById('qCurrent').textContent = state.questionIndex + 1;
+      document.getElementById('qTotal').textContent = total;
+      document.getElementById('progressFill').style.width = (((state.questionIndex + 1) / total) * 100) + '%';
+      document.getElementById('btn-back').style.visibility = state.questionIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('btn-skip').style.display = q.optional ? 'inline-flex' : 'none';
+
+      const selected = state.answers[q.id];
+      const gridClass = q.columns === 1 ? 'options-grid single-col' : 'options-grid';
+
+      mount.innerHTML = `
+        <div class="question-card" key="${q.id}">
+          <div class="question-label">Question ${q.label}</div>
+          <h2 class="question-title">${q.title}</h2>
+          <p class="question-hint">${q.hint}</p>
+          <div class="${gridClass}">
+            ${q.options.map(opt => `
+              <button class="option ${selected === opt.value ? 'selected' : ''}" data-value="${opt.value}">
+                <div class="option-icon">${opt.icon}</div>
+                <div class="option-body">
+                  <div class="option-title">${opt.title}</div>
+                  <div class="option-desc">${opt.desc}</div>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      mount.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const value = btn.getAttribute('data-value');
+          selectAnswer(q.id, value);
+        });
+      });
+    }
+
+    function selectAnswer(questionId, value) {
+      state.answers[questionId] = value;
+      // Visual feedback then advance
+      document.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
+      const chosen = document.querySelector(`.option[data-value="${value}"]`);
+      if (chosen) chosen.classList.add('selected');
+
+      setTimeout(() => {
+        if (state.questionIndex < QUESTIONS.length - 1) {
+          state.questionIndex++;
+          renderQuestion();
+        } else {
+          computeAndShowResults();
+        }
+      }, 350);
+    }
+
+    document.getElementById('btn-back').addEventListener('click', () => {
+      if (state.questionIndex > 0) {
+        state.questionIndex--;
+        renderQuestion();
+      }
+    });
+
+    document.getElementById('btn-start').addEventListener('click', startQuiz);
+
+    // =========================================================
+    // SCORING & RESULTS
+    // =========================================================
+    function computeScores() {
+      const scores = {};
+      Object.keys(SOLUTIONS).forEach(k => { scores[k] = 0; });
+
+      Object.keys(state.answers).forEach(qId => {
+        const answerValue = state.answers[qId];
+        const weights = (SCORING[qId] && SCORING[qId][answerValue]) || {};
+        Object.keys(weights).forEach(solId => {
+          scores[solId] = (scores[solId] || 0) + weights[solId];
+        });
+      });
+
+      // Sort descending
+      return Object.entries(scores)
+        .sort((a, b) => b[1] - a[1])
+        .map(([id, score]) => ({ id, score, solution: SOLUTIONS[id] }));
+    }
+
+    function buildReasoning() {
+      const reasons = [];
+      const need = state.answers.need;
+      const size = state.answers.size;
+      const ai = state.answers.ai;
+      const pri = state.answers.priority;
+
+      if (need && REASONING.need[need]) reasons.push(REASONING.need[need]);
+      if (size && REASONING.size[size]) reasons.push(REASONING.size[size]);
+      if (ai && REASONING.ai[ai]) reasons.push(REASONING.ai[ai]);
+      if (pri && REASONING.priority[pri]) reasons.push(REASONING.priority[pri]);
+
+      return reasons.filter(Boolean);
+    }
+
+    function computeAndShowResults() {
+      const ranked = computeScores();
+      const primary = ranked[0];
+      const alternatives = ranked.slice(1, 3);
+      const reasons = buildReasoning();
+
+      const mount = document.getElementById('resultsMount');
+      mount.innerHTML = `
+        <div class="primary-rec">
+          <div class="primary-rec-stripes">
+            <svg viewBox="0 0 951.98 748.46"><use href="#wbs-icon"/></svg>
+          </div>
+          <div class="rec-label">Primary recommendation</div>
+          <h3 class="rec-name">${primary.solution.name}</h3>
+          <div class="rec-edition">${primary.solution.edition}</div>
+          <p class="rec-tagline">${primary.solution.tagline}</p>
+
+          <div class="rec-meta">
+            <div class="rec-meta-item">
+              <div class="label">Starting price</div>
+              <div class="value"><span class="highlight">${primary.solution.startingPrice}</span> <small style="color:var(--text-muted);font-weight:300">${primary.solution.priceUnit}</small></div>
+            </div>
+            <div class="rec-meta-item">
+              <div class="label">Implementation</div>
+              <div class="value">${primary.solution.implementationTime}</div>
+            </div>
+            <div class="rec-meta-item">
+              <div class="label">Complexity</div>
+              <div class="value">${primary.solution.complexity}</div>
+            </div>
+          </div>
+
+          <div class="rec-section-title">Key capabilities</div>
+          <ul class="feature-list">
+            ${primary.solution.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+
+          <div class="reasoning">
+            <h4>Why this matches your answers</h4>
+            <ul>
+              ${reasons.map(r => `<li>${r}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <div class="alternatives">
+          <div class="alt-title">Also worth considering <span>— two alternatives based on your profile</span></div>
+          <div class="alt-grid">
+            ${alternatives.map(alt => `
+              <div class="alt-card">
+                <div class="alt-card-name">${alt.solution.name}</div>
+                <div class="alt-card-edition">${alt.solution.edition}</div>
+                <p class="alt-card-desc">${alt.solution.shortDesc}</p>
+                <div class="alt-card-meta">
+                  <span><strong>${alt.solution.startingPrice}</strong>${alt.solution.priceUnit}</span>
+                  <span>·</span>
+                  <span>${alt.solution.implementationTime}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Want help taking the next step?</h3>
+          <p>Woods Business Solutions implements Dynamics 365, Power Platform, and Azure for mid-market and enterprise clients. Let's talk about whether this is the right fit.</p>
+          <div class="cta-row">
+            <a href="mailto:zach@woods.consulting?subject=Dynamics%20365%20Explorer%20-%20Follow%20up&body=Hi%20Zach%2C%0A%0AI%20used%20the%20Dynamics%20365%20explorer%20and%20would%20like%20to%20discuss%20next%20steps.%0A%0A" class="btn btn-primary">
+              Get in touch
+              <span class="arrow">→</span>
+            </a>
+            <a href="https://www.linkedin.com/company/woods-business-solutions" target="_blank" rel="noopener" class="btn btn-secondary">Follow on LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="btn-restart">↺ Start over</button>
+          <button class="btn btn-secondary" id="btn-share">⎘ Copy result link</button>
+        </div>
+      `;
+
+      showScreen('results');
+
+      document.getElementById('btn-restart').addEventListener('click', () => {
+        showScreen('hero');
+      });
+
+      document.getElementById('btn-share').addEventListener('click', async () => {
+        const params = new URLSearchParams(state.answers);
+        const url = `${location.origin}${location.pathname}?${params.toString()}`;
+        try {
+          await navigator.clipboard.writeText(url);
+          const toast = document.getElementById('toast');
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2200);
+        } catch (e) {
+          prompt('Copy this link:', url);
+        }
+      });
+    }
+
+    // =========================================================
+    // Deep link support — if URL has answers, skip to results
+    // =========================================================
+    (function loadFromURL() {
+      const params = new URLSearchParams(location.search);
+      const required = ['need', 'size', 'current', 'ai', 'priority', 'industry'];
+      const hasAll = required.every(k => params.has(k));
+      if (hasAll) {
+        required.forEach(k => { state.answers[k] = params.get(k); });
+        computeAndShowResults();
+      }
+    })();
+  </script>
+</body>
+</html>
