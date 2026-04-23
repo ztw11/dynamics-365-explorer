@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200, initial-scale=1.0" />
+  <title>Share Card — Dynamics 365 Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --wbs-dark: #232323;
+      --wbs-lime: #CAF1A2;
+      --wbs-lime-muted: #B8E08F;
+      --wbs-blue-grey: #363C46;
+      --text-primary: #FFFFFF;
+      --text-secondary: #A0A0A0;
+      --text-muted: #707070;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: #111;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    /* The card itself — LinkedIn OG size exactly */
+    .card {
+      width: 1200px;
+      height: 630px;
+      background: var(--wbs-dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 56px 64px;
+      box-shadow: 0 16px 64px rgba(0,0,0,0.6);
+    }
+
+    /* Ambient gradient layer */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 80% at 95% 10%, rgba(202,241,162,0.10), transparent 55%),
+        radial-gradient(ellipse 40% 60% at 5% 100%, rgba(202,241,162,0.06), transparent 55%);
+    }
+
+    /* Accent top bar */
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--wbs-lime) 0%, var(--wbs-lime-muted) 100%);
+    }
+
+    /* Decorative oversized logo — subtle background flourish */
+    .flourish {
+      position: absolute;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 760px;
+      height: 760px;
+      opacity: 0.055;
+      pointer-events: none;
+    }
+
+    .flourish svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Header row (logo + wordmark) */
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-logo {
+      width: 64px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-text .name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text .role {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Eyebrow pill */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(202, 241, 162, 0.1);
+      border: 1px solid rgba(202, 241, 162, 0.25);
+      color: var(--wbs-lime);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 44px;
+      align-self: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--wbs-lime);
+      border-radius: 50%;
+    }
+
+    /* Main headline */
+    h1 {
+      font-size: 76px;
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-top: 22px;
+      max-width: 820px;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 .accent {
+      color: var(--wbs-lime);
+      font-style: italic;
+    }
+
+    /* Sub-headline */
+    .sub {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      max-width: 720px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Bottom band: stats + URL */
+    .footer {
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats {
+      display: flex;
+      gap: 44px;
+    }
+
+    .stat .n {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--wbs-lime);
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .stat .l {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .url-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .url-badge .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .url-badge .url {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--wbs-lime);
+      letter-spacing: -0.01em;
+    }
+
+    .url-badge .url::after {
+      content: " →";
+      color: var(--wbs-lime);
+      margin-left: 6px;
+    }
+
+    /* Screenshot guide — visible only when hovering or on small screens */
+    .guide {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 11px;
+      color: #555;
+      background: rgba(0,0,0,0.75);
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #222;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+
+    @media print {
+      body { background: transparent; padding: 0; }
+      .card { box-shadow: none; }
+      .guide { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="wbs-grad-1" x1="466.58" y1="441.8" x2="600.45" y2="515.28" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#454545"/>
+        <stop offset=".5" stop-color="#caf1a2"/>
+      </linearGradient>
+      <linearGradient id="wbs-grad-2" x1="316.7" y1="442.7" x2="446.97" y2="512.04" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#454545"/>
+        <stop offset=".5" stop-color="#caf1a2"/>
+      </linearGradient>
+      <symbol id="wbs-icon" viewBox="0 0 951.98 748.46">
+        <path fill="url(#wbs-grad-1)" d="M470.13,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+        <path fill="#caf1a2" d="M659.83,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+        <path fill="url(#wbs-grad-2)" d="M319.76,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+        <path fill="#caf1a2" d="M509.46,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+        <path fill="#caf1a2" d="M445.58,208.57h-70.84c-6.25,0-11.94,3.58-14.65,9.21l-154.42,321.17h81.06l158.85-330.38Z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="card" id="card">
+    <div class="flourish" aria-hidden="true">
+      <svg viewBox="195 200 560 345"><use href="#wbs-icon"/></svg>
+    </div>
+
+    <div class="brand-row">
+      <svg class="brand-logo" viewBox="195 200 560 345" aria-label="Woods Business Solutions">
+        <use href="#wbs-icon"/>
+      </svg>
+      <div class="brand-text">
+        <div class="name">Woods Business Solutions</div>
+        <div class="role">Microsoft Systems Integrator</div>
+      </div>
+    </div>
+
+    <span class="eyebrow">
+      <span class="dot"></span>
+      Free interactive tool
+    </span>
+
+    <h1>
+      Which <span class="accent">Dynamics 365</span> solution is for you?
+    </h1>
+
+    <p class="sub">
+      Six questions. A personalized recommendation. Zero sales pitch.
+    </p>
+
+    <div class="footer">
+      <div class="stats">
+        <div class="stat">
+          <div class="n">6</div>
+          <div class="l">Questions</div>
+        </div>
+        <div class="stat">
+          <div class="n">12</div>
+          <div class="l">Solutions matched</div>
+        </div>
+        <div class="stat">
+          <div class="n">~90s</div>
+          <div class="l">To finish</div>
+        </div>
+      </div>
+
+      <div class="url-badge">
+        <div class="label">Try it free</div>
+        <div class="url">d365-explorer.woods.consulting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide">
+    <strong>Screenshot tip:</strong><br/>
+    1. Zoom browser to 100% (Ctrl+0)<br/>
+    2. F12 → Ctrl+Shift+P → "Capture node screenshot"<br/>
+    3. Right-click the card div, capture<br/>
+    Or: Win+Shift+S, drag the card bounds.
+  </div>
+</body>
+</html>
