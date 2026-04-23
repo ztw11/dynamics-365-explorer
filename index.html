@@ -179,6 +179,19 @@
       flex-shrink: 0;
     }
 
+    /* Larger, tight-cropped logo for the header (paths inlined with a tighter viewBox
+       so the built-in left whitespace inside the full-bleed viewBox doesn't shove the
+       glyph to the right, breaking alignment with hero content below). */
+    .brand-mark .header-logo {
+      width: 120px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .brand-mark .header-logo { width: 88px; }
+    }
+
     .brand-text {
       font-size: 0.875rem;
       font-weight: 600;
@@ -1047,8 +1060,14 @@
 
   <header class="site-header">
     <div class="container">
-      <a class="brand-mark" href="/">
-        <svg aria-label="Woods Business Solutions"><use href="#wbs-icon"/></svg>
+      <a class="brand-mark" href="https://woods.consulting" target="_blank" rel="noopener">
+        <svg class="header-logo" viewBox="195 200 560 345" aria-label="Woods Business Solutions">
+          <path fill="url(#wbs-grad-1)" d="M470.13,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+          <path fill="#caf1a2" d="M659.83,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+          <path fill="url(#wbs-grad-2)" d="M319.76,476.54l27.41,57.01c1.59,3.3,4.92,5.4,8.58,5.4h23.3c23.98,0,39.73-25.05,29.34-46.66l-50.09-104.17-38.54,80.17c-1.25,2.61-1.25,5.65,0,8.25Z"/>
+          <path fill="#caf1a2" d="M509.46,217.78l-154.42,321.17h71.59c6.25,0,11.94-3.58,14.65-9.21l154.42-321.17h-71.59c-6.25,0-11.94,3.58-14.65,9.21Z"/>
+          <path fill="#caf1a2" d="M445.58,208.57h-70.84c-6.25,0-11.94,3.58-14.65,9.21l-154.42,321.17h81.06l158.85-330.38Z"/>
+        </svg>
         <div class="brand-text">
           Woods Business Solutions
         </div>
